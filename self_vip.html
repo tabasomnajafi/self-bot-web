@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلف VIP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tahoma', 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(145deg, #0a0f1e 0%, #1a1f2f 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        
+        .container {
+            max-width: 420px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: rgba(18, 25, 40, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 24px 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ffd700, #ffaa00, #ffd700);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .header h1 {
+            color: #ffd700;
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .header h2 {
+            color: #ffaa00;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #8e9aaf;
+            font-size: 14px;
+            background: rgba(255, 215, 0, 0.1);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .users-section {
+            background: rgba(10, 15, 30, 0.7);
+            border-radius: 24px;
+            padding: 20px 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .users-title {
+            color: #ffd700;
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .users-title::before {
+            content: '👥';
+            font-size: 22px;
+        }
+        
+        .user-item {
+            background: rgba(20, 30, 50, 0.8);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .user-item::before {
+            content: '⭐';
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            font-size: 40px;
+            opacity: 0.1;
+            transform: rotate(15deg);
+        }
+        
+        .user-item:hover {
+            border-color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(255, 215, 0, 0.3);
+        }
+        
+        .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .user-name {
+            color: #ffd700;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .user-name span {
+            color: #8e9aaf;
+            font-size: 14px;
+            font-weight: normal;
+        }
+        
+        .user-status {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #b8c7e7;
+            font-size: 14px;
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(255, 215, 0, 0.1);
+        }
+        
+        .detail-label {
+            color: #8e9aaf;
+            font-size: 13px;
+        }
+        
+        .detail-value {
+            color: #ffd700;
+            font-weight: 600;
+            font-family: monospace;
+            direction: ltr;
+        }
+        
+        .user-id {
+            background: rgba(255, 215, 0, 0.05);
+            padding: 5px 10px;
+            border-radius: 8px;
+            margin-top: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #8e9aaf;
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .badge {
+            background: linear-gradient(145deg, #ffd700, #ffaa00);
+            color: #0a0f1e;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #ffd700;
+            font-size: 14px;
+            padding: 10px;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .footer p {
+            color: #8e9aaf;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #8e9aaf;
+            padding: 20px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            color: #b8c7e7;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- هدر -->
+            <div class="header">
+                <h1>SELF VIP</h1>
+                <h2>سلف ساز</h2>
+                <div class="subtitle">⚡ با ما پشیمان نمی‌شوید</div>
+            </div>
+
+            <!-- بخش مشخصات کاربران -->
+            <div class="users-section">
+                <div class="users-title">
+                    کاربران فعال
+                </div>
+                
+                <!-- آمار کلی -->
+                <div class="stats">
+                    <span>تعداد کاربران: <span style="color: #ffd700;">3</span></span>
+                    <span>آنلاین: <span style="color: #00ff88;">2</span></span>
+                </div>
+
+                <!-- کاربر 1 - hsI_n2 -->
+                <div class="user-item">
+                    <div class="user-header">
+                        <div class="user-name">
+                            hsI_n2 <span>· سطح 1</span>
+                        </div>
+                        <div class="user-status">فعال</div>
+                    </div>
+                    <div class="user-details">
+                        <div class="detail-row">
+                            <span class="detail-label">آیدی عددی</span>
+                            <span class="detail-value">98</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">موجودی</span>
+                            <span class="detail-value">2,450 ⭐</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">وضعیت سلف</span>
+                            <span class="detail-value" style="color: #00ff88;">روشن ✓</span>
+                        </div>
+                        <div class="user-id">
+                            @hsI_n2
+                        </div>
+                    </div>
+                </div>
+
+                <!-- کاربر 2 - 8312588337 -->
+                <div class="user-item">
+                    <div class="user-header">
+                        <div class="user-name">
+                            VIP Member <span>· سطح 3</span>
+                        </div>
+                        <div class="user-status">VIP</div>
+                    </div>
+                    <div class="user-details">
+                        <div class="detail-row">
+                            <span class="detail-label">آیدی عددی</span>
+                            <span class="detail-value">8312588337</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">موجودی</span>
+                            <span class="detail-value">15,780 ⭐</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">وضعیت سلف</span>
+                            <span class="detail-value" style="color: #00ff88;">روشن ✓</span>
+                        </div>
+                        <div class="user-id">
+                            @vip_user
+                        </div>
+                    </div>
+                </div>
+
+                <!-- کاربر 3 - کاربر عادی -->
+                <div class="user-item">
+                    <div class="user-header">
+                        <div class="user-name">
+                            ali_reza <span>· سطح 2</span>
+                        </div>
+                        <div class="user-status">عادی</div>
+                    </div>
+                    <div class="user-details">
+                        <div class="detail-row">
+                            <span class="detail-label">آیدی عددی</span>
+                            <span class="detail-value">124578</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">موجودی</span>
+                            <span class="detail-value">890 ⭐</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">وضعیت سلف</span>
+                            <span class="detail-value" style="color: #ffaa00;">خاموش ○</span>
+                        </div>
+                        <div class="user-id">
+                            @ali_reza_77
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- فوتر -->
+            <div class="footer">
+                <div>⚡ سلف VIP ⚡</div>
+                <p>با ما پشیمان نمی‌شوید</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
